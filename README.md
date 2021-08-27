@@ -78,3 +78,5 @@ Custom color palettes can be added as a string of comma-separated hexadecimal va
 #### Alternate Palette 2
     99d5c9,6c969d,645e9d,392b58,2d0320,f9c784,fcaf58,ff8c42,cc2936,ebbab9
 ![Alternate Palette 2](https://user-images.githubusercontent.com/22378512/131156718-827af008-2466-4cba-afb2-fbf71dd33a0c.png)
+
+[Coolors.co](https://coolors.co/generate) is great for making your own palettes. 
