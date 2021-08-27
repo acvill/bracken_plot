@@ -8,56 +8,54 @@ Bracken is a companion program to Kraken that allows for estimation of relative 
 https://github.com/jenniferlu717/Bracken  
 https://github.com/DerrickWood/kraken2
 
-    DB=HumGut_DB
+Here is an example script for running Kraken and Bracken on paired-end reads:
 
-    WRK=/workdir/users/acv46/ben_May2021/vamb/small_NN
-    export OMP_NUM_THREADS=10
-    IN=$WRK/bins_merged_samples
-    kdb=/workdir/refdbs/kraken/${DB}
-    kout=$WRK/kraken2/${DB}
-
-    source /home/acv46/miniconda3/bin/activate
+    name=sample_A
+    kdb=home/refdbs/kraken/Standard_DB
+    source /home/miniconda3/bin/activate
     conda activate kraken2
 
-    DESIGN_FILE=$WRK/samples.txt
-            DESIGN=$(sed -n "${SGE_TASK_ID}p" $DESIGN_FILE)
-            NAME=`basename ${DESIGN}`
-
-    mkdir -p $kout/${NAME}
-    cd $kout/${NAME}
-
-    echo "${NAME} -- starting kraken2"
+    mkdir -p ${name}
+    cd ${name}
 
     kraken2 \
-            --report ${NAME}.report.txt \
+            --gzip-compressed \
+            --paired \
+            --report ${name}.report.txt \
             --db $kdb \
             --threads $OMP_NUM_THREADS \
-            --output ${NAME}.out.txt \
-            $IN/${NAME}_merged.fna
-
-    echo "${NAME} -- finished kraken2"
+            --output ${name}.out.txt \
+            ${name}_R1.fastq.gz ${name}_R2.fastq.gz
 
     conda activate bracken
 
-    echo "${NAME} -- starting bracken"
-
     levels=P,C,O,F,G,S,S1
-
     for level in $(echo $levels | sed "s/,/ /g"); do
 
-            echo "--> ${NAME} -- running bracken for taxonomic level ${level}"
-
-            bracken \
-                    -d $kdb \
-                    -i ${NAME}.report.txt \
-                    -o ${NAME}.bracken_${level}.txt \
-                    -r 75 \
-                    -l ${level}
+        bracken \
+                -d $kdb \
+                -i ${name}.report.txt \
+                -o ${name}.bracken_${level}.txt \
+                -r 75 \
+                -l ${level}
 
     done
 
-    conda deactivate
+Once you have Bracken reports for each sample at the desired taxonomic levels, reports can be combined by level using `combine_bracken_outputs.py`:
 
-    echo "${NAME} -- finished bracken, script done"
+    source /home/miniconda3/bin/activate
+    conda activate bracken
+
+    levels=P,C,O,F,G,S,S1
+    for level in $(echo $levels | sed "s/,/ /g"); do
+
+        combine_bracken_outputs.py \
+        --files ./*/*.bracken_${level}.txt \
+        --names sample_A,sample_B,sample_C \
+        --output ./merged_bracken_${level}.txt
+
+    done
+
+Note that [globbing expansion processes files alphabetically](https://serverfault.com/a/122743), so the sample identifiers supplied in the `--names` option need to be in alphabetical order. 
 
 ## Using the app
