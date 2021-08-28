@@ -14,7 +14,8 @@ https://github.com/DerrickWood/kraken2
 Here is an example script for running Kraken and Bracken on paired-end reads:
 
     name=sample_A
-    kdb=home/refdbs/kraken/Standard_DB
+    kdb=/home/refdbs/kraken/Standard_DB
+    fq=/workdir/fastq
     source /home/miniconda3/bin/activate
     conda activate kraken2
 
@@ -28,7 +29,7 @@ Here is an example script for running Kraken and Bracken on paired-end reads:
             --db $kdb \
             --threads $OMP_NUM_THREADS \
             --output ${name}.out.txt \
-            ${name}_R1.fastq.gz ${name}_R2.fastq.gz
+            ${fq}/${name}_R1.fastq.gz ${fq}/${name}_R2.fastq.gz
 
     conda activate bracken
 
