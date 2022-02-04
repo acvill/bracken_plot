@@ -16,6 +16,7 @@ Here is an example script for running Kraken and Bracken on paired-end reads:
     name=sample_A
     kdb=/home/refdbs/kraken/Standard_DB
     fq=/workdir/fastq
+    export OMP_NUM_THREADS=8
     source /home/miniconda3/bin/activate
     conda activate kraken2
 
