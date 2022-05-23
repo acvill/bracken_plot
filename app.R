@@ -100,7 +100,7 @@ plot_bracken <- function(file, top = NA, pal, otherColor){
     
 }
 
-# Define UI for application that draws a histogram
+# Define UI 
 ui <- fluidPage(
 
     # Application title
