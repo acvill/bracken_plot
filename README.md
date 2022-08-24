@@ -4,6 +4,8 @@
 
 The [bracken_plot application](https://acvill.shinyapps.io/bracken_plot/) allows for quick and easy visualization of merged Bracken data with stacked bar plots. This repository contains a how-to guide, example files, and the app.R source code. 
 
+If you want to create and manipulate bracken relative abundance plots as vector images, please download and run the plotting function provided in the [Rmarkdown document](https://github.com/acvill/bracken_plot/blob/main/bracken_plot.Rmd). 
+
 ## Getting Bracken data
 
 Bracken is a companion program to Kraken that allows for estimation of relative abundance at any taxonomic level. For information regarding installation of Bracken and Kraken, see their GitHub pages:
