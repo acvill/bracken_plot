@@ -1,0 +1,129 @@
+---
+title: "bracken_plot"
+output: html_document
+date: "2022-08-24"
+---
+
+# load required libraries
+```{r}
+# R version 4.2.0
+library(tidyverse) # v1.3.2
+library(svglite) # v2.1.0
+```
+
+# create plotting function
+```{r}
+plot_bracken <- function(file, top = NA, pal, otherColor){
+    
+    # file is the bracken data
+    # top is an integer, trims the data to the number of top taxa (by median) in a given level for better plotting
+    ## top = NA is the default and will plot all taxa in a given level
+    # pal is a palette of hex colors
+    # otherColor is the color used to represent taxa below median abundance threshold
+    
+    levdat <- file %>%
+        select(-contains(c("_num","taxonomy_"))) %>%
+        pivot_longer(!name, names_to = "sample", values_to = "fraction") %>%
+        mutate(sample = str_remove_all(sample, "_frac"))
+    
+    level <- file %>%
+        select(contains("taxonomy_lvl")) %>% unique()
+    
+    newpal <- str_split(pal, ",") %>% unlist() %>% paste0("#",.)
+    
+    if (level == "K") {
+        label <- "Kingdom"
+    } else if (level == "P") {
+        label <- "Phylum"
+    } else if (level == "C") {
+        label <- "Class"
+    } else if (level == "O") {
+        label <- "Order"
+    } else if (level == "F") {
+        label <- "Family"
+    } else if (level == "G") {
+        label <- "Genus"
+    } else if (level == "S") {
+        label <- "Species"
+    } else if (level == "S1") {
+        label <- "Strain"
+    } else {
+        message("Bracken taxonomy_lvl needs to be K, P, C, O, F, G, S, or S1")
+    }
+    
+    if (!is.na(top) && top < length(unique(levdat$name))) {
+        
+        top_select <- aggregate(levdat$fraction, by = list(levdat$name), FUN = median) %>%
+            purrr::set_names(c("group","value")) %>%
+            arrange(desc(value)) %>%
+            dplyr::slice(1:top) %>% pull(var = group)
+        
+        levdat <- filter(levdat, levdat$name %in% top_select)
+        
+        fill_unk <- aggregate(levdat$fraction, by = list(levdat$sample), FUN = sum) %>% 
+            purrr::set_names(c("sample","sum")) %>% 
+            mutate_if(is.numeric, round, 3)
+        
+        fill_unk$residual <- 1 - fill_unk$sum
+        
+        for (i in 1:nrow(fill_unk)) {
+            
+            levdat <- rbind(levdat, c("other", fill_unk[i,1], fill_unk[i,3]))
+            
+        }
+        
+        levdat <- transform(levdat, fraction = as.numeric(fraction))
+        levdat$name <- factor(levdat$name, levels = unique(levdat$name))
+        
+        fill_vals <- c(rep_len(newpal, nrow(unique(levdat[1]))-1), otherColor)
+        
+    } else {
+        
+        fill_vals <- c(rep_len(newpal, nrow(unique(levdat[1]))))
+        
+    }
+    
+    print(nrow(levdat))
+    
+    ggplot(data = levdat) +
+        geom_bar(mapping = aes(x = sample, y = fraction, fill = name),
+                 position = "fill", stat = "identity", width = 0.75) + 
+        scale_fill_manual(paste(label),
+                          values = fill_vals) +
+        theme_classic() +
+        scale_x_discrete("") +
+        scale_y_continuous("Relative Abundance") +
+        theme(axis.text.x = element_text(angle = -90, vjust = 0.5, hjust = 1, size = 12),
+              axis.text.y = element_text(size = 10),
+              axis.title.x = element_text(),
+              axis.title.y = element_text(size = 13),
+              legend.position = "right")
+    
+    
+    
+}
+```
+
+# create plot
+```{r}
+p1 <- plot_bracken(file = read_tsv("data/merged_bracken_C.txt"),
+                   top = 10,
+                   pal = "dcdcdc,7f0000,006400,708090,808000,483d8b,000080,9acd32,8b008b,66cdaa",
+                   otherColor = "gray")
+
+p1 
+```
+
+# save as svg, pdf
+```{r}
+ggsave(filename = "plots/bracken_plot_C.svg",
+       plot = p1, units = "in",
+       width = 10,
+       height = 6)
+
+ggsave(filename = "plots/bracken_plot_C.pdf",
+       plot = p1, units = "in",
+       width = 10,
+       height = 6)
+```
+
