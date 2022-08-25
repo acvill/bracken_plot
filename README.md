@@ -83,10 +83,12 @@ Custom color palettes can be added as a string of comma-separated hexadecimal va
     99d5c9,6c969d,645e9d,392b58,2d0320,f9c784,fcaf58,ff8c42,cc2936,ebbab9
 ![Alternate Palette 2](https://user-images.githubusercontent.com/22378512/131156718-827af008-2466-4cba-afb2-fbf71dd33a0c.png)
 
-[Coolors.co](https://coolors.co/generate) is great for making your own palettes. 
+#### Custom palettes
+
+[Coolors.co](https://coolors.co/generate) is great for manually picking your own palettes. [fbparis's palette tool](https://mokole.com/palette.html) attempts to maximize the perceived distinctness between colors and is a good option if a large number of colors is desired. 
 
 ## Troubleshooting
 
-Feel free to [open an issue](https://github.com/acvill/bracken_plot/issues/new) if you experience errors or would like to see specific features implemented in future updates. 
+Feel free to [open an issue](https://github.com/acvill/bracken_plot/issues/new) if you experience errors or would like to see specific features implemented in future updates. If you want to create and manipulate bracken relative abundance plots as vector images, please download and run the plotting function provided in the [Rmarkdown document](https://github.com/acvill/bracken_plot/blob/main/bracken_plot.Rmd). 
 
 **Note**: bracken_plot is currently hosted on shinyapps.io under a free account, which means the app is restricted to 25 active hours per month.
