@@ -10,12 +10,12 @@ If you want more control over the plot style and parameters, please download and
 
 Bracken is a companion program to Kraken that allows for estimation of relative abundance at any taxonomic level. For information regarding installation of Bracken and Kraken, see their GitHub pages:
 
-https://github.com/DerrickWood/kraken2
+https://github.com/DerrickWood/kraken2  
 https://github.com/jenniferlu717/Bracken  
 
 I recommend creating a conda enviroment and installing both from Bioconda:
 
-https://anaconda.org/bioconda/kraken2
+https://anaconda.org/bioconda/kraken2  
 https://anaconda.org/bioconda/bracken
 
 Here is an example script for running Kraken and Bracken on paired-end reads:
