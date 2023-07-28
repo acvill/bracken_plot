@@ -4,7 +4,7 @@
 
 The [bracken_plot application](https://acvill.shinyapps.io/bracken_plot/) allows for quick and easy visualization of merged Bracken data with stacked bar plots. This repository contains a how-to guide, example files, and the app.R source code. 
 
-If you want to create and manipulate bracken relative abundance plots as vector images, please download and run the plotting function provided in the [Rmarkdown document](https://github.com/acvill/bracken_plot/blob/main/bracken_plot.Rmd). 
+If you want more control over the plot style and parameters, please download and edit the plotting function provided in the [Rmarkdown document](https://github.com/acvill/bracken_plot/blob/main/bracken_plot.Rmd). 
 
 ## Getting Bracken data
 
@@ -67,7 +67,7 @@ Note that [globbing expansion processes files alphanumerically](https://serverfa
 
 ## Using the app
 
-Upload your merged Bracken file and click "Create Plot". To plot an example, you can download Bracken output files from [this repository](https://github.com/acvill/bracken_plot/tree/main/example_data_bracken). The app will automatically detect the taxonomic level and print a stacked bar plot showing the relative abundance of each taxa. Often, there are many taxa with near-zero abundances, and plotting all taxa results in ambiguous labeling. If this is the case, use the "Maximum number of taxa to plot" field to subsample the dataset. Subsampling will reduce the number of taxa plotted to the *n* taxa with the greatest median relative abundances across samples. The relative abundances of all taxa not in the subset are summed and plotted as "other". 
+Upload your merged Bracken file and click "Create Plot". To plot an example, you can download Bracken output files from [this repository](https://github.com/acvill/bracken_plot/tree/main/example_data_bracken). The app will automatically detect the taxonomic level and print a stacked bar plot showing the relative abundance of each taxa. Often, there are many taxa with near-zero abundances, and plotting all taxa results in ambiguous labeling. If this is the case, use the "Maximum number of taxa to plot" field to subsample the dataset. Subsampling will reduce the number of taxa plotted to the *n* taxa with the greatest median relative abundances across samples. The relative abundances of all taxa not in the subset are summed and plotted as "other". Once a plot is rendered, click "Download Plot" to download a pdf version. 
 
 Custom color palettes can be added as a string of comma-separated hexadecimal values without spaces or `#` characters. Colors are recycled in cases where the number of taxa exceeds the number of colors in a palette. If subsampling taxa, make sure that custom palettes do not contain the color used for the "other" label (gray `808080` by default). Some example palettes:
 
