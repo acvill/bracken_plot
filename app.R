@@ -125,8 +125,9 @@ ui <- fluidPage(
 
     # Application title
     titlePanel("Bracken bar plot generator"),
-
+    HTML("<script async defer src='https://buttons.github.io/buttons.js'></script>"),
     HTML("<p>For help, example files, and source code, please visit the <a href='https://github.com/acvill/bracken_plot'>GitHub page</a>.</p>"),
+    HTML("<a class='github-button' href='https://github.com/acvill/bracken_plot' data-icon='octicon-star' data-size='large' data-show-count='true' aria-label='Star acvill/bracken_plot on GitHub'>Star</a>"),
     
     # Sidebar with a slider input for number of bins 
     sidebarLayout(
