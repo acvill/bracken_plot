@@ -1,0 +1,9 @@
+cff-version: 1.2.0
+message: "If you use the app, please cite it as below."
+authors:
+- family-names: "Vill"
+  given-names: "Albert Charles"
+  orcid: "https://orcid.org/0000-0001-5982-0298"
+title: "bracken_plot: a Shiny app for taxonomic abundance visualization"
+date-released: 2023-07-28
+url: "https://github.com/acvill/bracken_plot"
