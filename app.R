@@ -145,8 +145,11 @@ ui <- fluidPage(
             ),
             textInput("userPal", "Custom color palette (optional)",
                       value = "5c2751,ef798a,f7a9a8,00798c,6457a6,9dacff,76e5fc,a30000,ff7700,f5b841"),
-            submitButton(text = "Create Plot"),
-            downloadButton(outputId = 'downloadPlot', label = 'Download Plot')
+            splitLayout(
+              submitButton(text = "Create Plot"),
+              downloadButton(outputId = 'downloadPlot', label = 'Get PDF'),
+              cellArgs = list(style = "padding: 0px")
+            )
         ),
         
         mainPanel(

@@ -5,6 +5,6 @@ account: acvill
 server: shinyapps.io
 hostUrl: https://api.shinyapps.io/v1
 appId: 9645765
-bundleId: 7593542
+bundleId: 7605066
 url: https://acvill.shinyapps.io/bracken_plot/
 version: 1
