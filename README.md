@@ -4,7 +4,7 @@
 
 The [bracken_plot application](https://acvill.shinyapps.io/bracken_plot/) allows for quick and easy visualization of merged Bracken data with stacked bar plots. This repository contains a how-to guide, example files, and the app.R source code. 
 
-If you want more control over the plot style and parameters, please download and edit the plotting function provided in the [Rmarkdown document](https://github.com/acvill/bracken_plot/blob/main/bracken_plot.Rmd). 
+If you want more control over the plot style and parameters, you can download and run the [plotting function](https://github.com/acvill/bracken_plot/blob/main/bracken_plot.Rmd) locally. 
 
 ## Getting Bracken data
 
